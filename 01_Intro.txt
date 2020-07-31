@@ -1,0 +1,60 @@
+http://swcarpentry.github.io/git-novice/setup
+
+http://swcarpentry.github.io/git-novice/01-basics/
+
+*****************************************************
+
+9:15 for 10 minutes
+
+*****************************************************
+In this section:
+- Why version control?
+- Git vs. Version Control
+- Vocabulary
+
+DON'T FORGET TO ASK FOR QUESTIONS
+
+*****************************************************
+WHY VERSION CONTROL?
+
+When we use version control, we create "unlimited undo" for our files and projects.
+
+We could try to do this by saving multiple copies of a file at different stages of our work:
+thesis-ch1-v1.3.docx
+thesis-ch1-v1.3-bak.docx
+thesis-ch1-v1.8.docx
+thesis-ch2-v3-tables.docx
+
+Even with good file naming practices:
+- those file names get confusing after a while
+- a long list of files in our directory makes it harder to find what we're looking for
+
+Instead, version control software, such as Git, can keep snapshots of our changes over time, so we can keep one copy of a file. This saves storage space and helps us keep our project directory clean.
+
+Think of version control like a wedding photographer, snapping pictures throughout the day to capture the event as it develops. You can go back to the pictures to remember the day at any point where a picture was taken.
+
+With that said, version control is NOT a backup! Version control tracks changes; it doesn't save multiple copies of a file. We can copy our project to a cloud service, such as GitHub, to create an additional copy, but we still need a robust backup strategy outside of version control. Backups are outside the scope of this workshop, but KU Libraries has more information about backups on our website:
+https://lib.ku.edu/data/store
+
+*****************************************************
+GIT vs VERSION CONTROL
+
+Git is not the only available version control software, but it is the one you're most likely to encounter and use in your work.
+
+We will be using Git as our version control software because:
+- it's free
+- it's widely used
+- there's a lot of help available online
+- it's the de facto version control system for software development
+- it works on an individual computer, without access to a server or an internet connection
+
+*****************************************************
+VOCABULARY
+
+* Commit: The changes that make up a version of an item
+
+* Repository (Repo): All the commits (changes) and metadata (descriptions, contributors, timestamps, etc.) for a project
+
+* A Repository can be kept in sync across multiple computers and collaborators
+
+*****************************************************

@@ -1,0 +1,110 @@
+http://swcarpentry.github.io/git-novice/06-ignore/
+https://git-scm.com/docs/gitignore (nuances of .gitignore)
+*****************************************************
+
+10:45 for 15 minutes, then break
+
+*****************************************************
+In this section:
+- Why we don't track changes on every file in a project
+- Tell Git to ignore files I don't want to track
+- Data and file management of our project
+
+DON'T FORGET TO ASK FOR QUESTIONS
+
+*****************************************************
+CLEANING UP OUR REPOSITORY
+
+We have a lot of files in the molecules/ directory that Git is not tracking. This is okay, because we don't always want to apply version control to every file for a project:
+- temporary files (by their nature, we aren't keeping them long-term)
+- raw data files (should be locked for editing for security)
+- in some disciplines, even analysis and figure files, since we should be able to resurrect these by re-running our code
+
+We've been experiencing how these files get in the way of checking the status of our repository. Let's learn how to clean up Git's status output without committing every file in the directory.
+
+****CHECK FOR EXTRA FILES****
+>ls (in addition to *.pdb, output should include *.txt files, raw/, analyzed/, from Bash lesson)
+Green check if you have all these files and directories
+(if not, >touch to make some files, >mkdir to make some directories)
+
+>git status (untracked files)
+Our *.pdb files are data files that we don't need to version control.
+
+During the Bash lesson, you used the .txt files to develop a sorting command with the pipe and to develop some loops. These kinds of development files are common when you're figuring out commands to put into a script; that doesn't mean we have to version control them.
+
+As we mentioned, raw and even analyzed data files usually aren't tracked under version control. We can treat these directories as our data directories for our project.
+
+****GITIGNORE****
+We create a special file in the top directory of our project (here, that's molecules/) called .gitignore (the dot is important, because it always sorts this file to the top of the list and it hides it by default unless you use ls -a (all))
+>nano .gitignore
+># Files
+>*.pdb
+>*.txt
+>
+># Directories
+>analyzed/
+>raw/
+>Save and exit
+This tells Git to ignore any file that ends with .pdb or .txt (because we are using a wildcard) and everything in the analyzed/ and raw/ directories.
+
+****COMMIT GITIGNORE****
+Now:
+>git status (only .gitignore)
+Do we have to track .gitignore? Yes. What you want to ignore will evolve as the project evolves, so it needs to be tracked.
+>git add .gitignore
+>git commit -m "Add the ignore file"
+>git status
+
+****CAUTION WITH IGNORING WHOLE DIRECTORIES****
+Ignoring whole directories is powerful and can also hide things from you that you want to see.
+As we develop more scripts for our project, we will want to keep these under version control. But suppose we accidentally create a script in an ignored directory, maybe one day when we're mucking around with some data:
+>touch raw/script.sh
+>git status
+
+Because raw/ is ignored, we will not see the status of that script unless we remember to ask. There are two ways:
+We can check the status of ignored files:
+>git status --ignored
+
+Or we can intentionally add a file, even if it's ignored:
+>git add raw/script.sh
+(this is ignored, are you sure? Can use git add -f (force) with the filename if we really want to add it)
+
+*****************************************************
+FURTHER FILE AND DATA MANAGEMENT - EXERCISE SLIDE
+
+>ls
+Adding files and directories to .gitignore has cleaned up our git status output some, but it hasn't cleaned up our actual directory. We are getting ready to put our project up on GitHub, so we want it a bit tidier than it is now. These data and file management practices will help you keep your projects organized.
+
+****TEMP FILES****
+We mentioned that the .txt files we used for pipe and loop development are temporary.
+We've told Git to ignore all .txt files, but this might not be the best strategy long-term. Instead, let's move our development files to a directory specifically for temporary stuff:
+(from molecules/)
+>mkdir tmp
+>mv *.txt tmp/
+>git status 
+(should be the same since *.txt is ignored - explain: .gitignore is greedy unless you are very specific; this could cause a problem later)
+
+We've changed our file management strategy for our project; we also need to update our .gitignore to match that strategy:
+>nano .gitignore
+>delete *.txt from Files section
+>add tmp/ to Directories section (alphabetical order)
+>Save and close
+
+>git status (changes present)
+>git add .gitignore
+>git commit -m "Add tmp/ to gitignore; remove *.txt"
+
+Other data management we could do with this directory includes things like making sure we don't have duplicated data and that our data files are where we want them.
+(unlikely to have time, but if so, walk through checking for duplicate .pdb files in molecules/ and molecules/raw/; remove one copy. Or, if nothing in raw/ moving *.pdb to raw/ to clean up project home directory)
+
+*****************************************************
+KEY POINTS
+
+We talked about why we would want Git to ignore files and directories
+We created a .gitignore file to ignore some files and directories in our project
+We forced Git to show the status of an ignored file
+We updated our file management strategy, then updated our .gitignore to match the new strategy
+
+WHAT QUESTIONS DO YOU HAVE?
+
+***************************************************** 

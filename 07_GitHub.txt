@@ -1,0 +1,241 @@
+http://swcarpentry.github.io/git-novice/07-github/
+
+*****************************************************
+
+11:05? for 45? minutes
+
+*****************************************************
+In this section:
+- Reasons to use GitHub or a similar service
+- Move changes to/from a remote repository
+
+DON'T FORGET TO ASK FOR QUESTIONS
+
+*****************************************************
+WHY GITHUB?
+
+Sticky check for existing GitHub accounts (if not, pause or send to helpers)
+
+There are a lot of reasons to use GitHub or a similar cloud service such as GitLab or BitBucket:
+- Collaborate with other people without emailing changes back and forth
+- Contribute to interesting open source projects
+
+Today we'll focus on some selfish reasons for using GitHub.
+
+*****************************************************
+GITHUB LOGIN
+Switch to browser
+When everyone has a GitHub account:
+Let's log in (two-factor alert)
+First, we'll explore GitHub a little.
+
+****GITHUB TOUR****
+Selfish reasons to use GitHub or similar:
+- Back up your work in the cloud (this comes with caveats; it won't back up everything, and there are space limits)
+- Can now make private repositories with a free account; not everything has to be public
+- Still, repos should never contain sensitive info - passwords, keys, login information
+  - good practice to keep these out of your code anyway
+  
+>Go to Overview page for a tour
+- Can use GitHub Overview as a public face for your work
+  - public repos give people a sense of what you're working on
+  - contribution activity shows where you're active when
+  - can be helpful additional information for your CV
+  
+Now let's put our molecules project in the cloud.
+
+*****************************************************
+GITHUB MAKE REPO
+Create new repo
+Call it molecules
+Walk through choices:
+- Don't let GitHub add a README right now
+- Don't let GitHub add anything else now, either - license or .gitignore (even though these are good things)
+- We already have files to put here; if we let GitHub add things first, it will cause conflicts.
+- We will address the README after we have populated the repository ourselves.
+Create repository
+
+*****************************************************
+MOVE WORK FROM LOCAL TO GITHUB
+Our local repo has our bash script and other work on our molecules project, but the GitHub repo is empty. We want to copy our local work up to GitHub.
+
+We do this by connecting the two repositories. The GitHub repository is called a remote. We need the URL that GitHub is showing us in order to do this
+
+(This instruction sheet is pretty handy - I use it every time I need to do this)
+
+Choose HTTPS (unless you are already a Git/GitHub user and have SSH set up on your computer)
+HTTPS doesn't require additional configuration. As you work regularly in GitHub, you will want to add SSH capability to your workflow - will paste the link to how to do that in the Etherpad
+
+https://help.github.com/articles/generating-ssh-keys
+
+*****************************************************
+SET A REMOTE
+Copy the URL
+Go to your shell
+>pwd (should be in molecules/)
+Inside molecules (very important)
+>git remote add origin (paste or type the URL)
+
+We can see that this has worked by checking:
+>git remote -v
+
+"origin" is a local nickname for the remote repository. We could change it, but it's easier not to.
+
+*****************************************************
+PUSH CHANGES TO REMOTE
+Now we can move our local changes to our shell script up to GitHub, using:
+>git push origin master
+"push TO origin FROM master"
+
+You will need to log in the first time you push. If you choose to use two-factor authentication with your GitHub account, you will need to enable some special settings:
+https://docs.github.com/en/github/authenticating-to-github/about-two-factor-authentication
+
+(discussion of git push -u is in the GitHub episode of the lesson:
+http://swcarpentry.github.io/git-novice/07-github/index.html)
+
+Switch to GitHub and explore the pushed repository:
+- All tracked files are copied to GitHub
+- All ignored files and directories are not copied (this is why GitHub is not a true backup strategy)
+- The .gitignore file we made is copied to GitHub
+
+>Open middle.sh - the code looks the same. Note the Raw and Blame buttons:
+- Raw is a plain text display of the file
+- Blame shows who made what changes when - helpful in a collaboration
+
+- All our commits and timestamps are copied
+>Open the list of commits
+- One use for the list of commits is as a way to show your advisor or employer what you've been doing.
+
+*****************************************************
+PULL CHANGES FROM REMOTE
+- Now that we have a remote, we can work either in our local repo or in our remote.
+- As long as we build steps into our workflow to ensure that we keep the copies in sync, it doesn't matter where we work
+
+Let's change something in the GitHub copy of our project (the remote)
+
+****ABOUT READMEs****
+- GitHub advised us to add a README file to the repo
+- A README is a high-level overview that contains essential facts about your project.
+- The file will be helpful for you, for anyone you bring on board the project, and for anyone learning about your work or deciding if they want to contribute (assuming it's a public repo)
+- We are going to add a README to our project
+
+****GITHUB ADD NEW FILE****
+- GitHub home of molecules (Code page)
+- Create new file
+- Get an editor
+
+****GITHUB and MARKDOWN****
+- GitHub will display the contents of a README file on the project's front page (the Code tab)
+- This display is formatted if the README is written using Markdown, a lightweight markup language that basically uses shortcuts to common HTML tags
+- We are going to use Markdown for this file
+
+The filename is README.md
+- .md is the file extension for Markdown
+
+****WRITING MARKDOWN****
+(Paste the Markdown sample into the Etherpad, if that's easier for people to follow)
+
+https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf
+
+Keys to using Markdown:
+- White space is significant:
+  - Space between tag and words
+  - Space between headings and lines intended to be paragraphs
+  - Space between paragraphs and lists
+*****************************************************
+
+# Molecules
+
+## SWC Git and GitHub Lesson
+
+Contents:
+
+- middle.sh: a script to print out the middle of a file
+- .gitignore: lists files not tracked in this project
+
+*****************************************************
+****PREVIEW YOUR WORK****
+- GitHub Preview button before commits
+- Isn't that formatting nice?
+
+****COMMIT****
+- In GitHub, commit is a one-stage process; you don't have to add separately.
+- This is easier, but you lose the ability to group changes thematically and commit a group of files at one time.
+- You still need to write a good commit message
+
+****ADMIRE YOUR WORK****
+
+****SYNC UP THE REPOS****
+- We have made a change to our remote repo
+- Changes don't automatically show up in our local repo
+- We need to use a command to get those changes
+>git pull origin master
+"pull FROM origin TO master"
+
+>ls
+(assume still in molecules)
+- See that README.md is now in your local copy
+>git status
+README doesn't show because it's already committed
+>git log
+See the commit made on GitHub, plus its metadata, in our local log
+
+*****************************************************
+CLONE AND SYNC WORKFLOW
+
+Having a remote repo on GitHub allows us flexibility in where we work. We can clone (copy) the repository to any computer that has Git installed and work on the files that Git is tracking.
+You might use this in any situation where you are working on an office or lab computer and pushing the files to GitHub. You can clone the repo to your laptop to be able to work off site. 
+
+Start by copying the Clone URL for your molecules repo in GitHub
+Now switch to your Terminal or GitBash command line interface.
+
+Let's change our directory and pretend that we're using a different computer:
+>cd ..
+>pwd (should be in data-shell)
+>mkdir git-clone-example (this new directory is our pretend different computer)
+>cd git-clone-example
+>git clone [clone URL] (watch the magic)
+>ls -a
+
+- As with GitHub, tracked files were copied; ignored files and directories were not.
+- We can open our files and keep working:
+>nano README.md
+> Add Author info to the bottom:
+---
+
+### About the Author
+
+My Name, My Affiliation
+>Save and close
+>git status
+>git add README.md
+>git commit -m "Add project author to README"
+
+When we use this kind of workflow, we need to be intentional about keeping the copies in sync:
+- The cloud copy needs to be authoritative
+- Any local changes need to go to GitHub ASAP:
+>git push origin master
+(because we used git clone, we don't have to set a remote again)
+Switch to GitHub to see changes (may need to refresh)
+
+- And all of the local copies need to be synced BEFORE starting work again
+Switch back to Terminal
+>cd ../molecules (remember, this is our other computer)
+>git pull origin master (watch the magic)
+I would need to do this before making edits, otherwise I risk creating conflicts that can be difficult to resolve.
+
+*****************************************************
+KEY POINTS
+
+We talked about reasons for using GitHub or a similar service
+We made a new repository in GitHub
+We pushed our local molecules/ files to the new repository
+We created a README and tried out a little Markdown
+We pulled changes from GitHub to our local repository
+We cloned our GitHub repository to "another computer" and made changes
+We synced up all three repositories and talked about this sync workflow
+
+WHAT QUESTIONS DO YOU HAVE?
+*****************************************************
+
+Clone is also one tool for working with other peoples' code. Practicing collaboration is a next step of the workshop, but it's difficult to do this online. The SWC lesson contains more information on collaboration if you're curious.

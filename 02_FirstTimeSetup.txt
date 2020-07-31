@@ -1,0 +1,102 @@
+http://swcarpentry.github.io/git-novice/02-setup/
+
+*****************************************************
+
+9:25 for 15 minutes
+
+*****************************************************
+In this section:
+- First-time setup of Git on your computer
+
+DON'T FORGET TO ASK FOR QUESTIONS
+
+*****************************************************
+WHY SETUP
+We used Git to download the data and files for Bash Shell and Python. This worked for most everyone, so we know that Git is installed correctly. But we didn't do any setup. Let's do that now.
+*****************************************************
+EMPTY DESKTOP, START SCREEN SHARE FOR FULL SCREEN, NOT APPLICATION
+
+*****************************************************
+NAVIGATE TO MOLECULES
+Launch a shell - either Terminal or GitBash for most
+
+Green check when your command line interface is open and you have your monitor arranged so you can see the screen share AND your CLI
+
+We're going to use some of what we learned last week to navigate to our work space:
+> cd ~/Desktop/data-shell
+
+Let's talk through this command and our path:
+cd = change directory
+~ = "a shortcut meaning my Home directory, usually /Users/MyUserName/ or C:\Users\MyUserName\"
+Desktop = the name of my desktop directory
+data-shell = the name of the directory I want to go to
+
+Let's go one more directory in, to molecules/
+> cd molecules
+
+Green check when you type this:
+> pwd (for "print working directory")
+and get this (Mac):
+> /Users/MyUserName/Desktop/data-shell/molecules
+or this (Windows):
+> /c/Users/MyUserName/Desktop/data-shell/molecules
+
+Another check for the *.pdb files in molecules/
+>ls *.pdb
+Green check if this command results in a list of the 6 molecules
+
+If not, check your molecules/raw/ directory from last week:
+>ls raw/*.pdb
+If they are there, copy them to molecules/:
+>cp raw/*.pdb .
+
+If not, have a helper help them get a copy of the files by downloading data-shell again:
+http://swcarpentry.github.io/shell-novice/data/data-shell.zip
+(it doesn't matter for this lesson if they have two copies of data-shell as long as they don't conflict; they won't need the additional files created during the Bash lesson. If necessary, rename this one to git-data-shell)
+
+*****************************************************
+SET UP GIT
+
+We can customize our Git installation to include our name and email address, to colorize our output, to set our preferred text editor, and to say that we want to use these settings for every project.
+
+When working with any new computer, we can check the Git installation this way:
+> git --version
+
+Git commands are written as "git verb" where "verb" is what we want to do. 
+
+Let's start with your name and email address. I will type the commands but not enter, because my install is configured.
+>git config --global user.name "My Name" (use your own name)
+>git config --global user.email "my@email.address" (for now use the email address you registered with GitHub)
+
+By using the --global flag, we tell Git to apply these settings to all projects on this computer.
+
+*****************************************************
+LINE ENDINGS
+Git uses all the characters in a file to compare different version of that file. If you are collaborating across operating systems, this may become an issue for your team because different OSs use different hidden characters to indicate the end of a line (when you hit "Return"). These settings are recommended to cut down on these conflicts:
+Mac OS or Linux:
+>git config --global core.autocrlf input
+Windows:
+>git config --global core.autocrlf true
+
+*****************************************************
+DEFAULT TEXT EDITOR:
+Finally, we will set our default text editor. For our lesson today, we're going to set the default to nano (same editor as the Bash lesson). You can reconfigure this whenever you like.
+>git config --global core.editor "nano -w"
+
+*****************************************************
+Check your config settings any time:
+>git config --list
+
+Getting help: - put in Etherpad
+>git config -h (gives a list of commands)
+>git config --help (launches the man pages for all of Git - will need to switch screen share or pull browser into shared space)
+
+*****************************************************
+KEY POINTS
+
+We checked our Git installation
+We configured Git for all projects on our computer
+We checked our configuration
+We launched brief and lengthy help
+
+WHAT QUESTIONS DO YOU HAVE?

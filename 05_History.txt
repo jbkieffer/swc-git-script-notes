@@ -1,0 +1,149 @@
+http://swcarpentry.github.io/git-novice/05-history/
+
+*****************************************************
+
+10:30 for 15 minutes 
+
+*****************************************************
+In this section:
+- Improve our script with instructions
+- Break our script
+- Identify and review old versions of our file
+- Recover a working version of our script
+- Detach our HEAD and recover
+
+DON'T FORGET TO ASK FOR QUESTIONS
+
+*****************************************************
+ADDING INSTRUCTIONS TO THE SCRIPT
+
+Using our script is straightforward right now while we're actively working on it:
+>bash middle.sh cubane.pdb 15 5
+
+But when we move on to other work and then revisit this directory or train someone else to use the script, it may take time to remember how to use it.
+"Your most frequent collaborator is yourself in 6 months, and your past self doesn't answer email."
+
+We can fix this by adding some documentation to our script:
+>nano middle.sh
+># $1 is the filename
+># $2 is the number of lines to send to head
+># $3 is the number of lines to send to tail
+>Save and close
+
+****Add/Commit****
+>git add middle.sh
+>git commit middle.sh
+Without -m flag, Git will throw you into nano to write a commit message because we set nano as our global editor for Git at the beginning. When this happens, write the message, save, and exit as you would any other nano file.
+>Add comments about variable order for script
+
+(make sure folks didn't get thrown into vim)
+Esc:q! to get out of vim
+
+*****************************************************
+WHAT IF SOMEONE BREAKS THE SCRIPT?
+
+It's important to see what happens if we don't deploy the script correctly:
+>bash middle.sh
+head: invalid number of lines: ‘’
+tail: invalid number of lines: ‘’
+
+Let's say our colleague deployed the script this way, got confused, and then decided to edit the script instead of reading the documentation:
+>nano middle.sh
+"Oh, these dollar signs are the problem"
+>head -n 2 1 | tail -n 3
+>Save and close
+
+The next time you run the script, it doesn't work:
+>bash middle.sh octane.pdb 15 5
+head: cannot open '1' for reading: No such file or directory
+
+*****************************************************
+FIGURE OUT WHAT HAPPENED + LOOKING THROUGH HISTORY
+
+>git status (unstaged changes)
+>git log (no new commits; I know it worked the last time I committed - refer to the commit metadata - name, date, time, commit message) - also note the HEAD designation.
+
+We need to compare the broken script to the last known working version, which we committed:
+>git diff HEAD middle.sh
+HEAD is a Git convention that refers to the most recent commit. I'm asking Git to show the difference between middle.sh as it exists right now and what it looked like the last time I know it worked.
+>Talk through the output
+
+We can confirm what happened to our code by looking further back in time to see how our command used to look:
+>git diff HEAD~2 middle.sh (~2 = "minus two")
+
+You may not use this very much, but it's helpful for tracking down the most recent working version when something breaks.
+
+We can also use the commit ID to do this comparison:
+>git log --oneline
+Pick short ID of most recent commit - you don't need to use the full 40 characters
+>git diff commit# middle.sh
+(output should be the same as git diff HEAD middle.sh)
+
+*****************************************************
+RESTORE OUR SCRIPT
+
+Now that we know where our last working version was - at the most recent commit - we can restore it without having to edit the file itself:
+
+****GIT CHECKOUT FROM HEAD****
+>git checkout HEAD middle.sh
+>cat middle.sh
+git checkout restores an older version of a file - in this case from HEAD, the most recent commit. When I use git checkout, git does actually change the contents of the file. Our colleague's edits are all gone.
+>git status
+Because I checked out the most recent commit, I don't have to add/commit anything.
+
+****GIT CHECKOUT FROM COMMIT ID****
+However, if we restore an older version of the script, we would need to commit. Let's see what that looks like:
+>git log (pick the oldest ID, "initial commit for middle script")
+This would be at HEAD~3, but it gets tricky to count for this convention when you go far back in history - it's more reliable to use the commit ID.
+>git checkout commit# middle.sh - your ID will be different from mine, so be sure to type yours
+>cat middle.sh (only 1 line - git has again actually changed the file)
+>git status (changes are staged but not committed - point out git's help about git reset HEAD)
+
+If we wanted to keep this version of our script, we would commit here. Since we don't, we can go back to the known working version, again using checkout:
+>git checkout HEAD middle.sh
+>git status
+
+*****************************************************
+DON'T LOSE YOUR HEAD!
+
+As our last topic in exploring the history of our repository, I need to warn you to not detach your HEAD. This is a common error when exploring history. Let's look at how it happens and how you can fix it.
+
+Above, we put a commit ID number in git checkout, specifically for middle.sh - arrow up:
+>git checkout hash# middle.sh
+(Delete the file name)
+If we forgot to type the file name and hit enter, Git would say
+"You are in detached HEAD state" - basically, "You've told me you want to look at the entire repository from a time in the past, but I know about more recent changes. I'm confused." You should not make any changes until you reattach HEAD.
+
+Fix this by saying:
+>git checkout master
+
+*****************************************************
+EXERCISE: IMPROVE SCRIPT DOCUMENTATION
+A SLIDE FOR INDEPENDENT WORK, THEN DO TOGETHER
+
+Since our colleague had trouble deploying the script, we should improve our documentation in the hope that someone reads it next time (that someone could be us).
+>nano middle.sh
+Insert line above the editing comments:
+># Comments on script development:
+Insert line above the variable numbers:
+># Instructions for use:
+># bash middle.sh $1 $2 $3 where:
+>Save and quit nano
+>git status
+>git add middle.sh
+>git commit -m "Improve instructions for running script"
+
+*****************************************************
+KEY POINTS
+
+We added instructions and documentation to our script
+We experienced what happens when our code breaks when it's under version control
+- Don't Panic
+- Go to Git's log of the repository
+We tried two ways of navigating the repository history: HEAD and the short commit ID
+We used git checkout to recover a working version of our script
+We saw how easy it is to commit the Detached HEAD error, and how to recover
+
+WHAT QUESTIONS DO YOU HAVE?
+
+*****************************************************

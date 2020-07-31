@@ -1,0 +1,17 @@
+Git Lesson wrap-up
+
+*****************************
+Resources:
+Reference page: http://swcarpentry.github.io/git-novice/reference.html
+
+Complete lesson material: http://swcarpentry.github.io/git-novice/
+
+Countries Exercise lesson material: https://oulib-swc.github.io/git-novice-countries/08-collab/
+
+Contributing to an open project via GitHub (Mozilla Science Lab): http://mozillascience.github.io/working-open-workshop/github_for_collaboration/
+
+Step-by-step guide to creating a pull request: https://github.com/dmgt/swc_github_flow/blob/master/for_novice_contributors.md
+
+GitHub Hello World exercise to practice GitHub Flow (fork/branch/pull request): https://guides.github.com/activities/hello-world/
+
+GitHub-flavored Markdown cheatsheet: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet

@@ -1,0 +1,250 @@
+http://swcarpentry.github.io/git-novice/04-changes/
+
+Resource for fully explaining git diff output:
+https://www.git-tower.com/learn/git/ebook/en/command-line/advanced-topics/diffs
+
+*****************************************************
+
+9:45 for 45 minutes
+
+*****************************************************
+In this section:
+- Turning a Bash command into a Bash script
+- Recording changes in Git
+- Check the status of the repository
+- Record information about my changes
+
+DON'T FORGET TO ASK FOR QUESTIONS
+
+Note that our example today uses only one file. This is somewhat artificial for real-world purposes, but Git is complicated enough to learn without adding the additional burden of working with multiple files.
+*****************************************************
+BASH COMMAND
+
+In molecules/
+>ls
+Our directory contains files describing some organic molecules. The file extension tells us these are in Protein Data Bank format - a plain text format that describes the atoms in the molecule. We can peek at the inside of one of these files (refresh on what cat does):
+>cat octane.pdb
+
+Let's say that our work with these files requires us to be able to look at the middle lines of each file (highlight some lines in the cat output to show). To do this, we will have to put two different commands together:
+>head -n 15 octane.pdb | tail -n 5
+First we ask head to take the first 15 lines of the octane file, then we pipe that output into the tail command, which takes the last lines of a file - here, we want the last 5. The result in output is lines 11-15.
+Review pipe - like plumbing
+
+This is a useful command, but it's cumbersome to type and easy to make typos. A more effective way to apply this command to our 6 files, or to 600 files, is to put it into a shell script.
+
+*****************************************************
+BASH SCRIPT - new script
+
+Let's make a new file for our script:
+>nano middle.sh 
+Remind about nano as text editor; creating a file called "middle" because the script will extract the middle of a file. The file extension .sh indicates that this file is a shell script.
+
+>head -n 15 octane.pdb | tail -n 5 
+Discuss syntax highlighting - nano recognizes this as a shell script and tries to help by turning different pieces of the text different colors. Save and close.
+
+Now we can ask the shell to run the program we just wrote. Our shell is bash, so we do that this way:
+>bash middle.sh
+Same output as if we had typed that command at the prompt.
+
+Note about text editors being different from word processors; the formatting, headers, page numbers, and other things go somewhere in the file that you can't see. But commands like head expect all the characters in the file to be plain text, as if from a keyboard. When writing and editing scripts and other programs, use a plain text editor.
+
+*****************************************************
+RECORDING CHANGES - part 1
+
+****Git Status****
+What does Git think?
+>git status
+Explain the output, especially "untracked files present" - Git isn't tracking any of the existing files in this directory (yet).
+(there will be a lot of them after the Bash lesson - we need to visually ignore them for now)
+
+Git uses a two-stage process for tracking files. This gives us very granular control over what should be included at a particular version of the project.
+
+****Git Add****
+Git will track the file if we tell it to:
+>git add middle.sh 
+(refer back to the wedding photographer analogy - this is you as the photographer assembling people from the wedding party for a photo)
+
+****Git Commit****
+Now Git knows it needs to track the file, but it hasn't recorded the changes we made yet. To do that, we have to commit:
+>git commit -m "Initial commit for middle script"
+(This is you as the photographer taking the picture - or snapshot - of that moment in time)
+
+****Commit ID****
+When we commit, we tell Git to take everything we added using git add and store a copy inside the .git directory. This process creates an ID number for each commit - show the number.
+
+****Commit Message****
+The -m flag means "message" and we use it to record a short comment about what we did and why. We use these comments later to figure out when a set of changes was made.
+If we forget -m, Git will open up its default text editor (here, nano) so we can write a message - basically, writing a commit message is not optional.
+
+Let's check in with Git:
+>git status (explain status - "everything is up to date")
+
+****Git Log****
+Hey, Git, what did I do recently on my project?
+>git log (refer to the longer commit ID and show other metadata)
+Git Log lists all the commits made to a repository in reverse chronological order.
+
+****Where do commits go?****
+Where are my changes?
+>ls (still just one file)
+Git is saving the information we give it through git add and git commit into the .git subdirectory so our file system doesn't get cluttered, and so we don't accidentally delete things.
+
+With our Git repository up to date, let's revisit our shell script.
+
+*****************************************************
+BASH SCRIPT - add a variable - BREAK AFTER THIS SAVE IF AT ALL POSSIBLE
+
+To remember the contents of our script:
+>cat middle.sh
+
+Our script is specific to the octane file. What if we want to use it on other files? We could edit it every time we wanted to use it, or we could make it more versatile by adding a variable:
+>nano middle.sh
+>Comment the top: # Add ability to run on any file
+>head -n 15 "$1" | tail -n 5
+In a shell script, $1 means "the first parameter (a filename, here) on the command line.
+We put quotes around $1 in the script in case any files we use this script with have whitespace or other special characters.
+Save and close.
+
+Now we can do this:
+>bash middle.sh octane.pdb
+OR
+>bash middle.sh pentane.pdb (model up arrow if things are going well)
+
+Adding variables to our script makes it more useful.
+I feel really accomplished that I added a variable and it works, so I'm going to celebrate by going to get some coffee and chatting a colleague - Hey, it works!
+
+*****************************************************
+RECORDING CHANGES - part 2
+
+We've made a change to our script; we need to track that change
+
+****Standard workflow - what is the status?****
+>git status (the file has been modified, but not added or committed)
+
+****Git Diff****
+Since I went to get coffee after editing this file, I should review the changes I made:
+>git diff
+This command shows us the differences between what we have done to the file most recently and what Git knows about from before. There's a lot of output; I can explain all of it at a break if anyone wants a complete tour. 
+For now, let's focus on how to tell the versions apart and the summary of changes at the bottom:
+
+First line: Git names the versions of the file - usually a is older and b is newer
+
+Second line: exactly which versions are being compared, referencing the unique commit IDs we talked about. The last number identifies the mode of the file: 100644 = "normal" file; other numbers for executables and symbolic links
+
+Third and fourth lines: Git assigns a marker to show which content is coming from which file.
+Here, --- is a, the older version, and +++ is b, the newer version.
+
+Fifth line: Git tells us what pieces of the file it is showing us:
+-1,5: from a, starting at line 1, show 5 lines
++1,7: from b, starting at line 1, show 7 lines
+
+Remaining lines: show actual differences in the versions of the file.
++ shows lines present in b that are not present in a.
+
+Now after glancing at the diff output, I remember that I added a variable. I'm ready to commit.
+
+****Forgetting to Add****
+Let's commit:
+>git commit -m "Change script to work with any file"
+>git status ("changes not staged for commit, use git add")
+
+Oops. We forgot to add:
+>git add middle.sh
+>git commit -m "Change script to work with any file"
+
+****Why this workflow add then commit?****
+Allows you to stage changes by grouping commits together in logical portions, about one file or one topic across several files. That way, if you have to step back to a previous version, the changes you un-do logically go together.
+This gives you very granular control over how the history of your project is written.
+
+If you commit everything without deliberately adding it first, you might commit changes you forgot you made and have to search for how to undo a commit.
+
+*****************************************************
+BASH SCRIPT - add more variables
+
+I want to try out my new variable on another data file:
+> bash middle.sh propane.pdb
+
+Oops - this file is shorter than the others I've tested; I'm getting the end of the file, even though I want the middle. As with the file name, I could edit the script every time, or I can make it more useful by adding variables for the number of lines I want it to look at.
+
+>nano middle.sh
+>Comment the top: # Add ability to set line numbers
+>head -n "$2" "$1" | tail -n "$3"
+We have made two new variables to represent the number of lines that go to head and tail. The variable numbers correspond to where they are entered on the command line:
+$1 is the filename and gets entered first
+$2 is the line number that goes to head, it's entered second
+$3 is the line number that goes to tail, it's entered third
+
+Now we can use this script for data files of different lengths:
+>bash middle.sh propane.pdb ($1) 11 ($2) 5 ($3) 
+OR
+>bash middle.sh methane.pdb 7 5
+
+*****************************************************
+RECORDING CHANGES - part 3
+
+We've made another change to our script; let's keep tracking those changes and take another look at using git diff.
+
+****DIFF****
+>git diff middle.sh
+As before, let's focus on telling the difference between the two versions of the file and the summary of changes:
+>Third and fourth lines: Git assigns a marker to show which content is coming from which file.
+Here, --- is a, the older version, and +++ is b, the newer version.
+
+>Remaining lines: show actual differences in the versions of the file.
++ shows lines present in b (newer) that are not present in a (older).
+- shows lines present in a (older) that are not present in b (newer)
+Diff is also color-coding the output - we can interpret this as:
+green = new added
+red = old deleted
+
+****STAGE****
+Let's stage:
+>git add middle.sh
+
+And now I get interrupted between the add and the commit. Whether it's 5 minutes or a few hours or days, when I get back to my work, I need to remember what I did.
+
+****DIFF AGAIN****
+>git diff (no output)
+
+What happened?
+>git status
+Changes staged but not yet committed - aha.
+
+>git diff --staged (now we see the difference between the most recent committed version and the staged version)
+
+****COMMIT****
+>git commit -m "Add ability to select line numbers"
+>git status (up to date)
+>git log (3 commits to date, most recent is first, note full length hash ID)
+
+When the Git log gets too long for your screen, the log goes to the pager, a screen that makes your prompt disappear. Q to quit, arrows to go up or down, space bar to go forward one page, b to go back one page.
+
+Instead of potentially getting stuck in the pager, we can adjust our git log commands.
+
+****GIT LOG SYNTAX****
+Git log has similar syntax to the head and tail commands. If we only want to see the one most recent commit in the log, we can say
+>git log -n 1 (only last commit)
+
+or we can compress the log information:
+>git log --oneline
+Note the shorter commit ID and immediate focus on the commit message.
+This form of the log emphasizes how important a good commit message is: short AND descriptive.
+
+*****************************************************
+KEY POINTS
+
+We saved a useful command into a file (a shell script) for reuse
+We applied version control to that script by adding and committing it to our Git repository
+We changed the script to make it more useful by adding variables
+We committed each of these changes to our repository
+We looked at differences between versions of our script using git diff
+We examined the log of our project so far using git log
+
+WHAT QUESTIONS DO YOU HAVE?
+
+*****************************************************
+FUNNY
+The unfortunate reality of commit messages:
+https://xkcd.com/1296/ 
+
+*****************************************************

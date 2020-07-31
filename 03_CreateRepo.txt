@@ -1,0 +1,38 @@
+http://swcarpentry.github.io/git-novice/03-create/
+
+*****************************************************
+
+9:40 for 5 minutes
+
+*****************************************************
+In this section:
+- Create a Git repository
+
+DON'T FORGET TO ASK FOR QUESTIONS
+
+*****************************************************
+Now that Git is configured, let's make a repository to track our work in the molecules/ directory.
+
+Confirm I'm in molecules - put up a green check when you confirm, too
+>pwd
+
+>git init (tells Git to initiate a repository for the molecules/ directory)
+
+>ls (what happened? doesn't look like anything changed. Promise, something is there)
+>ls -a (recall -a flag from last week)
+See .git hidden directory - this is where Git stores information about the project. If this directory gets deleted, all our information about the project - history, commits, timestamps, everything - gets deleted too.
+
+Depending on your command-line program (Terminal or GitBash), your prompt may have changed when you initiated the Git repository. It's trying to be helpful by telling you that there's a repository here, since you can't see any evidence unless you ls -a and look for the .git file.
+
+Let's ask Git about the status of our project:
+>git status (this is the first Git power command - will use this a lot)
+
+Congrats, you have a local repo!
+
+*****************************************************
+KEY POINT
+>git init creates a new repository (repo)
+
+The information about this repository resides in the hidden .git directory
+
+WHAT QUESTIONS DO YOU HAVE?

@@ -1,0 +1,88 @@
+Workshop site: https://kulibraries.github.io/2020-07-24-ku-online/ 
+
+Etherpad site: https://pad.carpentries.org/2020-07-24-ku-online
+
+Lesson material:
+Bash scripts: http://swcarpentry.github.io/shell-novice/06-script/
+Git lesson: http://swcarpentry.github.io/git-novice/
+
+*****************************************************
+
+9:00 for 15 minutes
+
+*****************************************************
+In this section:
+- Workshop introductions
+- Zoom Setup
+- Getting Help
+
+*****************************************************
+WORKSHOP INTRODUCTIONS
+
+1. Introduce self
+2. Helpers, introduce yourself
+   - Use Zoom names to designate instructor, helper, room host
+   - Which helper is keeping notes in the Etherpad? - add Etherpad to your name
+3. Identify the Room Host, who is in charge of:
+   - Connecting learners with helpers
+   - Creating breakout rooms if we need them
+   - Clearing the nonverbal responses as we address them
+4. Invite learners to add something about themselves in their Zoom name
+   - e.g.: pronouns, department or discipline
+5. Share links to workshop page, lesson material, and Etherpad
+   - We will use the Etherpad for shared notes that a helper takes. Use this document as much or as little as you want. In an online workshop, it can be hard to pay attention to one more window. The Etherpad is for the whole workshop and will persist, so you can visit the notes at any time during or after the workshop.
+
+What we are doing today:
+- Develop a Bash script to save commands that we need to use over and over
+- Using Git, apply version control to our script to record our changes over time and be able to restore a working version if (when) we break something.
+- Save a copy of our Git repository in GitHub, to back up our script history and potentially share the script with others.
+
+Note that this is a bit of a departure from the Carpentries lesson material. We want to make sure that you get to practice Bash scripting, which is hard to fit into the full Bash lesson, and we want you to be able to practice version control in a context that directly applies to how you would use version control in your work.
+
+We will break at approx. the beginning of each hour for 5 minutes.
+
+*****************************************************
+ZOOM SETUP
+
+Open Participant window 
+Demo all nonverbal feedback and ask that everyone use it, including for stepping away
+
+Open Chat if you haven't already
+- We will use Zoom chat for getting help and asking questions.
+- You can chat everyone or privately chat a specific person, such as a helper or the room host
+- You can save the chat at any time (tell/show how)
+
+When screen share starts, your Participant and Chat windows may go away. Tell how to get them back, even if you hide them behind other windows.
+
+Manage your screen space:
+With 1 monitor:
+- Split your screen between the Zoom screen share and your work space (mostly Bash shell)
+- Have Participant and Chat available but minimized
+- Have Browser available (for Etherpad and eventually GitHub) but minimized
+
+With multiple monitors:
+- Prioritize the Zoom screen share and your work space (mostly Bash shell)
+- Park Participant and Chat windows in a different monitor
+- Park Browser (for Etherpad and eventually GitHub) in a different monitor
+
+*****************************************************
+GETTING HELP
+
+Zoom chat is our primary method for getting help.
+Chat a helper or the room host privately, or ask a question for everyone to see
+Your question is also someone else's question!
+
+We will try to address all help needs in the main Zoom room.
+If an issue is complicated, the Room Host may invite you to a breakout room with a helper.
+Whether you are in the main room or a breakout room, be prepared to share your screen by minimizing any private windows you have open (e.g. email).
+
+*****************************************************
+BASH DATA
+
+Check that everyone still has the data-shell directory
+
+Where to download if you deleted it:
+http://swcarpentry.github.io/shell-novice/data/data-shell.zip
+Download the zip file, open it, and move the data-shell directory to your Desktop
+
+*****************************************************
