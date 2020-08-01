@@ -18,4 +18,6 @@ Learners develop the Bash script and apply version control to it over the course
 
 Jamene Brooks-Kieffer, Data Services Librarian, University of Kansas
 
+## License
 
+CC-BY-4.0
