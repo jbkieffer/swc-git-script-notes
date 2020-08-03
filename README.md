@@ -21,3 +21,7 @@ Jamene Brooks-Kieffer, Data Services Librarian, University of Kansas
 ## License
 
 CC-BY-4.0
+
+## DOI
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3970869.svg)](https://doi.org/10.5281/zenodo.3970869)
